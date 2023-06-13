@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import my.edu.utem.ftmk.dad.examination.model.device;
 
 @Repository
-public interface DeviceRepository extends JpaRepository<device, Long> {
+public interface deviceRepository extends JpaRepository<device, Long> {
 
 }

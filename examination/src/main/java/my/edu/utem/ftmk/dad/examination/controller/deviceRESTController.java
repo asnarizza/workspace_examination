@@ -15,43 +15,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import my.edu.utem.ftmk.dad.examination.model.device;
-import my.edu.utem.ftmk.dad.examination.repository.DeviceRepository;
+import my.edu.utem.ftmk.dad.examination.repository.deviceRepository;
 
 @RestController
 @RequestMapping("/api/device")
-public class DeviceRESTController {
+public class deviceRESTController {
 	
 	@Autowired
-	private DeviceRepository deviceRepository;
+	private deviceRepository DeviceRepository;
 	
 	@GetMapping
 	public List<device> getDevice(){
-		return deviceRepository.findAll();
+		return DeviceRepository.findAll();
 	}
 	
 	@GetMapping("{deviceId}")
 	public device getDevice(@PathVariable long deviceId) {
 
-		device Device=deviceRepository.findById(deviceId).get();
+		device Device=DeviceRepository.findById(deviceId).get();
 		
 		return Device;
 	}
 	
 	@PostMapping()
 	public device insertDevice(@RequestBody device Device) {
-		return deviceRepository.save(Device);
+		return DeviceRepository.save(Device);
 		
 	}
 	
 	@PutMapping()
 	public device updateDevice(device Device) {
-		return deviceRepository.save(Device);
+		return DeviceRepository.save(Device);
 	}
 	
 	@DeleteMapping("{deviceId}")
 	public ResponseEntity<HttpStatus> deleteDevice(@PathVariable long deviceId){
 		
-		deviceRepository.deleteById(deviceId);
+		DeviceRepository.deleteById(deviceId);
 		
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
