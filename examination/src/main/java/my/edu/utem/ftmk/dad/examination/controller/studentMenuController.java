@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,14 @@ private String defaultURI = "http://localhost:8080/examinationAttendance/api/stu
 		String uri = "http://localhost:8080/examinationAttendance/api/students";
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<student[]>response = restTemplate.getForEntity(uri, student[].class);
-		student Student[] = response.getBody();
-		List<student>studentList = Arrays.asList(Student);
-		model.addAttribute("Student",studentList);
+		student studObject[] = response.getBody();
+		List<student>studentList = Arrays.asList(studObject);
+		model.addAttribute("studObject",studentList);
 		return "students";
 		
 	}
 	
-	@RequestMapping("Student/save")
+	@RequestMapping("student/save")
 	public String updateStudent (@ModelAttribute student Student) {
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity <student>request = new HttpEntity <student>(Student);
@@ -47,31 +48,56 @@ private String defaultURI = "http://localhost:8080/examinationAttendance/api/stu
 			studentResponse = restTemplate.postForObject(defaultURI, request, String.class);
 		}
 		System.out.println(studentResponse);
-		return "redirect:/Student/list";
+		return "redirect:/student/list";
 	}
-	@GetMapping("/Student/{StudentId}")
+	
+	@GetMapping("/student/{StudentId}")
 	public String getStudent(@PathVariable Integer StudentId, Model model) {
 		String pageTitle = "New Student";
-		student Student = new student();
+		student studObject = new student();
 		if (StudentId > 0) {
 			String uri = defaultURI + "/" + StudentId;
 			RestTemplate restTemplate = new RestTemplate();
-			Student = restTemplate.getForObject(uri, student.class);
+			studObject = restTemplate.getForObject(uri, student.class);
 			pageTitle ="Edit Student";
 			
 		}
-		model.addAttribute("Student",Student);
+		model.addAttribute("Student",studObject);
 		model.addAttribute("pageTitle",pageTitle);
 		return "studentinfo";
 	}
 	
-	@RequestMapping("/Student/delete/{StudentId}")
+	@RequestMapping("/student/delete/{StudentId}")
 	public String deleteStudent(@PathVariable Integer StudentId) {
 		String uri = defaultURI + "/{StudentId}";
 		RestTemplate restTemplate = new RestTemplate();
 		restTemplate.delete(uri,
 				Map.of("StudentId", Integer.toString(StudentId)));
-		return "redirect:/Student/list";
+		return "redirect:/student/list";
+	}
+	
+	@GetMapping("/Student/list")	
+	public ResponseEntity<String> getStudent(){
+		
+		String uri = "http://localhost:8080/examinationAttendance/api/students";
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<student[]> response = restTemplate.getForEntity(uri,student[].class);
+		student studArray[] = response.getBody();
+		
+		System.out.println(this.getClass().getSimpleName());
+		System.out.println("Total record:"+ studArray.length + "\n");
+		
+		for (student Student:studArray) {
+			System.out.print(Student.getStudentId() + "-");
+			System.out.print(Student.getStudentName() + "-");
+			System.out.println(Student.getCourse() + "-");
+			System.out.println(Student.getSession() + "-");
+			System.out.println(Student.getPhoneNumber() + "-");
+			System.out.println(Student.getEmail());
+			
+		}
+		String message = "Check out the message in the console";
+		return new ResponseEntity<>(message, HttpStatus.OK);
 	}
 	
 }
