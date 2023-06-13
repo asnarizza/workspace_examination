@@ -69,6 +69,4 @@ public class student {
 		Email = email;
 	}
 	
-	
-
 }
