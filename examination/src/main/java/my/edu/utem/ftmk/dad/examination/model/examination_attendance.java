@@ -15,8 +15,8 @@ public class examination_attendance {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="examAttendId")
-	private int examinationAttandance;
+	@Column(name="examinationAttendanceId")
+	private int examinationAttendanceId;
 	
 	@Column(name="Student")
 	private student Student;
@@ -24,7 +24,7 @@ public class examination_attendance {
 	@Column(name="Examination")
 	private examination Examination;
 	
-	@Column(name="heckInTime")
+	@Column(name="checkInTime")
 	private Date checkInTime;
 	
 	@Column(name="venue")
@@ -34,11 +34,11 @@ public class examination_attendance {
 	private device Device;
 	
 	
-	public int getExaminationAttandance() {
-		return examinationAttandance;
+	public int getExaminationAttendance() {
+		return getExaminationAttendance();
 	}
-	public void setExaminationAttandance(int examinationAttandance) {
-		this.examinationAttandance = examinationAttandance;
+	public void setExaminationAttendance(int examinationAttendance) {
+		this.examinationAttendanceId = examinationAttendance;
 	}
 	public student getStudent() {
 		return Student;
@@ -70,6 +70,4 @@ public class examination_attendance {
 	public void setDevice(device device) {
 		Device = device;
 	}
-	
-	
 }
