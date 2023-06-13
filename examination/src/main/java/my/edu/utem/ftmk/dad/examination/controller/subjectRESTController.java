@@ -29,9 +29,9 @@ public class subjectRESTController {
 		return SubjectRepository.findAll();
 	}
 	
-	@GetMapping("{SubjectId}")
-	public subject getSubject(@PathVariable long SubjectId) {
-		subject Subject = SubjectRepository.findById(SubjectId).get();
+	@GetMapping("{subjectId}")
+	public subject getSubject(@PathVariable long subjectId) {
+		subject Subject = SubjectRepository.findById(subjectId).get();
 		return Subject;
 	}
 	
