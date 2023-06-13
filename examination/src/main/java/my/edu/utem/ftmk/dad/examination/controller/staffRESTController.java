@@ -14,40 +14,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import my.edu.utem.ftmk.dad.examination.model.student;
-import my.edu.utem.ftmk.dad.examination.repository.studentRepository;
+import my.edu.utem.ftmk.dad.examination.model.staff;
+import my.edu.utem.ftmk.dad.examination.repository.staffRepository;
 
 @RestController
-@RequestMapping("/api/students")
-public class studentRESTController {
+@RequestMapping("/api/staffs")
+public class staffRESTController {
 
 	@Autowired
-	private studentRepository StudentRepository;
+	private staffRepository StaffRepository;
 	
 	@GetMapping
-	public List<student> getStudent(){
-		return StudentRepository.findAll();
+	public List<staff> getStaff(){
+		return StaffRepository.findAll();
 	}
 	
-	@GetMapping("{StudentId}")
-	public student getStudent(@PathVariable long StudentId) {
-		student Student = StudentRepository.findById(StudentId).get();
-		return Student;
+	@GetMapping("{StaffId}")
+	public staff getStaff(@PathVariable long StaffId) {
+		staff Staff = StaffRepository.findById(StaffId).get();
+		return Staff;
 	}
 	
 	@PostMapping()
-	public student insertStudent(@RequestBody student Student) {
-		return StudentRepository.save(Student);
+	public staff insertStaff(@RequestBody staff Staff) {
+		return StaffRepository.save(Staff);
 	}
 	
 	@PutMapping()
-	public student updateStudent(@RequestBody student Student) {
-		return StudentRepository.save(Student);
+	public staff updateStaff(@RequestBody staff Staff) {
+		return StaffRepository.save(Staff);
 	}
 	
-	@DeleteMapping("{StudentId}")
-	public ResponseEntity<HttpStatus> deleteStudent(@PathVariable long StudentId){
-		StudentRepository.deleteById(StudentId);
+	@DeleteMapping("{StaffId}")
+	public ResponseEntity<HttpStatus> deleteStaff(@PathVariable long StaffId){
+		StaffRepository.deleteById(StaffId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }
